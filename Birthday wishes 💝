@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Birthday Garden for You</title>
+<style>
+:root{--pink:#ff75bb;--gold:#ffe49b;--deep:#100923}
+*{box-sizing:border-box}
+body{margin:0;font-family:Georgia,'Times New Roman',serif;color:#fff;min-height:100vh;background:radial-gradient(ellipse at 20% 15%,#55205f 0,transparent 35%),radial-gradient(ellipse at 80% 75%,#251b70 0,transparent 40%),linear-gradient(135deg,#100923,#31104c 55%,#090b2b);overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;background-image:radial-gradient(#fff 1px,transparent 1px),radial-gradient(#ffc9ed 1px,transparent 1px);background-size:83px 83px,127px 127px;background-position:0 0,40px 60px;opacity:.35;animation:twinkle 4s infinite alternate}
+@keyframes twinkle{to{opacity:.7}}
+.screen{min-height:100vh;display:none;position:relative;z-index:1;padding:32px 18px;align-items:center;justify-content:center;text-align:center}
+.screen.active{display:flex}
+.card{width:min(680px,94vw);padding:clamp(25px,5vw,52px);border:1px solid #dca5ff65;border-radius:22px;background:linear-gradient(145deg,#210e3cdd,#130c2ee8);box-shadow:0 0 45px #e34ba52a,inset 0 0 35px #8f45a51c}
+.kicker{letter-spacing:.24em;text-transform:uppercase;font:12px Arial,sans-serif;color:#ffb9e4}
+h1{font-size:clamp(2.4rem,8vw,5rem);line-height:1.05;color:var(--gold);text-shadow:0 0 24px #ffb4df5c;margin:16px 0}
+h2{font-size:clamp(1.8rem,6vw,3rem);color:#ffd9f0;margin:8px 0 18px}
+p{font-size:1.08rem;line-height:1.7;color:#f4e8ff}
+button{border:0;border-radius:999px;padding:13px 24px;background:linear-gradient(90deg,#ff68b5,#c35bff);color:white;font-weight:bold;cursor:pointer;box-shadow:0 5px 22px #e64ab655;transition:transform .2s}
+button:hover{transform:translateY(-2px) scale(1.02)}
+button.secondary{background:#ffffff12;border:1px solid #ffffff45}
+.buttons{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:25px}
+.small{font:12px Arial,sans-serif;color:#d8c2ec}
+.emoji{font-size:3rem;margin:12px}
+#heartField{height:270px;position:relative;border:1px solid #ffffff25;border-radius:16px;overflow:hidden;background:#09071a77}
+.heart{position:absolute;font-size:27px;border:0;background:none;padding:5px;box-shadow:none;animation:float 3s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+#score{color:var(--gold);font:14px Arial,sans-serif;margin:12px}
+.flowers{font-size:clamp(2rem,7vw,4rem);letter-spacing:.08em;line-height:1.4;filter:drop-shadow(0 0 12px #ff78c8)}
+.book{background:#571d43;border:3px solid #d6a65f;border-radius:8px;padding:26px 20px;max-width:430px;margin:20px auto;box-shadow:8px 10px 0 #09071c}
+.book h3{color:#ffdf9b;letter-spacing:.16em}
+.book p{font-style:italic}
+.cake{font-size:5rem;filter:drop-shadow(0 0 20px #ffb4c9)}
+.candle{animation:glow 1s infinite alternate}
+@keyframes glow{to{filter:drop-shadow(0 0 15px #ffe9a5)}}
+.final-heart{width:170px;height:170px;border-radius:50%;margin:25px auto;background:radial-gradient(circle,#ffabd9,#e743a4 65%,#8e237d);display:grid;place-items:center;font-size:4.5rem;box-shadow:0 0 40px #ff5cb877}
+footer{position:fixed;bottom:10px;left:0;right:0;text-align:center;font:10px Arial,sans-serif;color:#c9b2d7aa;z-index:2}
+</style>
+</head>
+<body>
+<section class="screen active" id="welcome">
+ <div class="card"><div class="kicker">A little universe made for you</div><h1>Happy Birthday</h1><p>To the most special person in my universe ✨<br>A little surprise, made with love.</p><div class="emoji">🌙 ✨ 💗 ✨ 🌙</div><p class="small">Ready to open your birthday surprise?</p><div class="buttons"><button onclick="go('game')">Open your surprise ✨</button></div></div>
+</section>
+<section class="screen" id="game">
+ <div class="card"><div class="kicker">Level 01 · A tiny game</div><h2>Catch the Hearts ♡</h2><p>Collect 5 hearts to unlock your next surprise.</p><div id="score">Hearts collected: 0 / 5</div><div id="heartField"></div><div class="buttons"><button class="secondary" onclick="go('welcome')">Back</button><button id="gameNext" onclick="go('flowers')" disabled>Continue</button></div></div>
+</section>
+<section class="screen" id="complete">
+ <div class="card"><div class="kicker">Achievement unlocked</div><div class="emoji">🏆 ✨</div><h2>Level Complete!</h2><p>You found every little heart. Here's something made just for you.</p><div class="buttons"><button onclick="go('flowers')">Continue 💗</button></div></div>
+</section>
+<section class="screen" id="flowers">
+ <div class="card"><div class="kicker">For you, always</div><h1 style="font-style:italic">I Love You</h1><div class="flowers">🌷 🌸 🌹<br>💐 🌼 💐</div><p>Real flowers may fade, but the love behind this little garden is meant to keep blooming.</p><div class="buttons"><button onclick="go('book')">Read your keepsake book 📖</button></div></div>
+</section>
+<section class="screen" id="book">
+ <div class="card"><div class="kicker">A keepsake just for you</div><div class="book"><div class="kicker">Chapter One</div><h3>FOR YOU</h3><div class="emoji">♡</div><p>“Some people make ordinary days feel magical. You are one of those people.”</p><p>Thank you for being you — for your smile, your kindness, and all the little things that make you special.</p><div class="small">A page written with love ✦</div></div><div class="buttons"><button onclick="go('wish')">Make a birthday wish 🎂</button></div></div>
+</section>
+<section class="screen" id="wish">
+ <div class="card"><div class="kicker">Make a birthday wish</div><h2>Close your eyes & wish ✨</h2><div class="cake">🎂 <span class="candle">🕯️</span></div><p>May this new chapter bring you happiness, beautiful surprises, kind people, and dreams that come true.</p><div class="buttons"><button onclick="blow()">Blow out the candle 💨</button><button class="secondary" onclick="go('forever')">Continue</button></div><p id="wishMessage" class="small"></p></div>
+</section>
+<section class="screen" id="forever">
+ <div class="card"><div class="kicker">One last thing</div><h1 style="font-style:italic">Forever & Always</h1><p>No matter how many birthdays come and go, I hope you always remember how precious you are.</p><div class="final-heart">💗</div><p>May your world be full of love, laughter, and little moments worth keeping.</p><div class="buttons"><button onclick="go('welcome')">Replay the surprise ↻</button></div><p class="small">Made especially for you · with love ✨</p></div>
+</section>
+<footer>made with ♡ and a little bit of magic</footer>
+<script>
+function go(id){
+ document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+ document.getElementById(id).classList.add('active');
+ if(id==='game') startGame();
+}
+let score=0, timer;
+function startGame(){
+ const field=document.getElementById('heartField');
+ field.innerHTML=''; score=0; updateScore();
+ document.getElementById('gameNext').disabled=true;
+ for(let i=0;i<10;i++){
+  const b=document.createElement('button'); b.className='heart'; b.textContent=['💗','💖','💕','💘'][i%4];
+  b.style.left=(5+Math.random()*82)+'%'; b.style.top=(5+Math.random()*75)+'%';
+  b.style.animationDelay=(Math.random()*2)+'s';
+  b.onclick=()=>{if(b.disabled)return;b.disabled=true;b.style.opacity='.15';score++;updateScore();if(score>=5){document.getElementById('gameNext').disabled=false;document.getElementById('score').textContent='All hearts collected! 💖';}};
+  field.appendChild(b);
+ }
+}
+function updateScore(){document.getElementById('score').textContent='Hearts collected: '+score+' / 5'}
+function blow(){document.querySelector('.candle').textContent='💨';document.getElementById('wishMessage').textContent='Wish sent into the universe ✨ May it come true!'}
+</script>
+</body>
+</html>
